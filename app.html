@@ -1,0 +1,208 @@
+<html>
+<head>
+<title>Learning Tree App</title>
+<link rel="stylesheet" href="app.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://www.chartjs.org/dist/2.9.3/Chart.min.js"></script>
+<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+
+<script type="text/javascript" src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+
+
+</head>
+
+<body>
+  <div class = "topBar">
+    <img src = "logo.png" height = 80%> </img>
+  </div>
+
+  <div id = "primary-menu">
+    <ul>
+      <li><a id = "Explore" class="active"><img src = "telescope2.png" height = 25px width = 25px> <br>Explore</a></li>
+      <li><a id = "Learn"><img src = "book.png" height = 25px width = 25px> <br> Learn</a> </li>
+      <li><a id = "NodeSearch"><img src = "analytics.png" height = 25px width = 25px> <br>Node Search</a></li>
+      <li><a id ="Analytics"><img src = "statistics.png" height = 20px width = 20px> <br>Analytics</a></li>
+      <li><a id ="Settings"><img src = "gear.png" height = 20px width = 20px> <br>Settings</a></li>
+    </ul>
+  </div>
+
+<!-- add later
+  <div class = "mainBox2">
+
+
+  <div class = "block1">   <select id='projectFilterSelect'>
+      <option value=''> All Modules </option>
+      <option value='1'> Module 1 </option>
+      <option value='2'> Module 2 </option>
+      <option value='3'> Module 3 </option>
+    </select>
+  </div>
+
+  <div class ="block2"> <div class = "text2"> Completed</div> <label class="switch">
+    <input id = "showComplete" type="checkbox">
+    <span class="slider round"></span>
+  </label> </div>
+
+</div>
+-->
+
+
+  <div class = "mainBox">
+  <h1 id="h1">  The Learning Tree </h1>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div id = "modal-content" class="modal-content">
+        <span class="close"> x </span>
+        <div class = "modal-heading">
+         <b>Node Preview</b>
+       </div>
+        <div id = "modal-text">
+        <p>Node Information</p>
+        <p> Node Title </p>
+        <p> Node Level </p>
+        <p> Modules </p>
+        <p> Node Link </p>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class = "searchBox" id ="searchBox">
+
+      <h2> Node Search </h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for nodes.." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:60%;">Name</th>
+    <th style="width:40%;">Modules</th>
+  </tr>
+  <tr>
+    <td>Computer Internet Literacy</td>
+    <td>Module 1</td>
+  </tr>
+  <tr>
+    <td>Computational Thinking</td>
+    <td>Module 1</td>
+  </tr>
+  <tr>
+    <td>Python Programming</td>
+    <td>Module 2</td>
+  </tr>
+  <tr>
+    <td>Characters Strings and Looping</td>
+    <td>Module 2, Module 3</td>
+  </tr>
+  <tr>
+    <td>HTML & CSS</td>
+    <td>Module 1, Module 2 </td>
+  </tr>
+  <tr>
+    <td>Algorithms</td>
+    <td>Module 2</td>
+  </tr>
+  <tr>
+    <td>Big Data</td>
+    <td>Module 3</td>
+  </tr>
+
+</table>
+
+
+
+
+    </div>
+
+    <div class = "analyticsBox" id ="analyticsBox">
+
+      <h2> Analytics </h2>
+
+      <!-- <div class = "ab1">
+        <div id="canvas-holder" style="width:40%">
+          <canvas id="chart-area"></canvas>
+
+        </div>
+
+      </div>
+      <div class = "ab1">
+        <img src = "graph1.png" height = 200px width = 200px>
+
+      </div>
+      <div class = "ab1">
+      <img src = "graph3.png" height = 200px width = 200px>
+
+      </div>
+      <div class = "ab1">
+          <img src = "graph2.png" height = 200px width = 200px>
+
+      </div>
+
+    -->
+    <div class="chart">
+      <canvas id="chart-area"></canvas>
+    </div>
+    <div class="chart">
+      <canvas id="chart-area2"></canvas>
+    </div>
+
+
+
+    </div>
+
+    <div id="mynetwork"></div>
+
+
+
+
+  </div>
+
+  <div class = "rightBox" id="rightBox">
+
+    <div class = "sub1" id="ExploreLegend">
+    <h3>Legend</h3>
+    <div class = "legend"> <div class ="legendText"><img src ="bluecircle.png" height = 20%>  </div><div class ="legendText">Level 4 </div></div>
+    <div class = "legend"> <div class ="legendText"><img src ="pinkcircle.png" height = 20%> </div><div class ="legendText"> Level 5 </div></div>
+    <div class = "legend"> <div class ="legendText"><img src ="orangecircle.png" height = 20%></div><div class ="legendText"> Level 6 </div></div>
+    </div>
+
+    <div class = "sub1" id="LearnLegend" style="display:none;">
+    <h3>Legend</h3>
+    <div class = "legend"> <div class ="legendText"><img src ="yellowcircle.png" height = 20% >  </div><div class ="legendText"> Core </div></div>
+    <div class = "legend"> <div class ="legendText"><img src ="greycircle.png" height = 20% > </div><div class ="legendText"> Optional </div></div>
+    </div>
+
+
+    <div class = "sub1">
+    <h3>Customise View</h3>
+      <div class ="block2"> <div class = "text2"> Completed</div> <label class="switch">
+      <input id = "showComplete" type="checkbox">
+      <span class="slider round"></span>
+      </label> </div>
+
+      <div class = "block2"> <select id='projectFilterSelect'>
+          <option value=''> All Modules </option>
+          <option value='1'> Module 1 </option>
+          <option value='2'> Module 2 </option>
+          <option value='3'> Module 3 </option>
+        </select>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+</body>
+
+
+<script type="text/javascript" src="app.js"></script>
+</html>
