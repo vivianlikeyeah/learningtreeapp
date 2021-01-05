@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>Module View</title>
+<link rel="stylesheet" href="moduleview.css">
+
+<script src="jquery.min.js"></script>
+
+<script src="Chart.min.js"></script>
+<script src="utils.js"></script>
+
+<script type="text/javascript" src="vis-network.min.js"></script>
+
+
+</head>
+
+<body>
+  <div class = "topBar">
+    <img src = "logo.png" height = 80%> </img>
+  </div>
+
+  <div id = "primary-menu">
+    <ul>
+      <li><a id = "Build" class="active"><img src = "telescope2.png" height = 25px width = 25px> <br>Build</a></li>
+    </ul>
+  </div>
+
+
+  <div class = "mainBox2">
+  <h1 id="h1">  The Learning Tree </h1>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div id = "modal-content" class="modal-content">
+        <span class="close"> x </span>
+        <div id = "modal-text">
+        <p>Node Information</p>
+        <p> Node Title </p>
+        <p> Node Level </p>
+        <p> Modules </p>
+        <p> Node Link </p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div id="mynetwork"></div>
+
+    <div class = "legendLeft">
+      <div class = "keyText">
+
+      Key <br>
+      <img src = "pinkIcon.png" height = 5%>
+      1st Year &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src = "blueIcon.png" height = 5%>
+      2nd Year &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src = "greenIcon.png" height = 5%>
+      Selected &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src = "yellowIcon.png" height = 5%>
+      Core &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <img src = "greyIcon.png" height = 5%>
+      Optional
+      </div>
+    </div>
+
+
+
+  </div>
+
+  <div class = "rightBox" id="rightBox">
+
+
+    <div class = "sub1" id="ExploreLegend">
+    <h3>Build Module</h3>
+    <div class = "text2"> Set Core </div> <label class="switch">
+    <input id = "setCore" type="checkbox">
+    <span class="slider round"></span>
+    </label>
+
+  <div class = "text2"> Set Optional</div> <label class="switch">
+    <input id = "setOptional" type="checkbox">
+    <span class="slider round"></span>
+    </label>
+
+    <div id = "exportEdges"> Export <img id= "exportImage" src="export.svg" height= 2%></div>
+
+    <!--<button id="exportEdges"> ^ Export </button> -->
+    <div id="mynetwork2"></div>
+
+    </div>
+
+    <div class = "legendLeft">
+      <div class = "keyText">
+
+      Node Completion Time Estimate: <br>
+      <div id = "timeEstimate">N/A </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+</body>
+
+
+<script type="text/javascript" src="moduleview.js"></script>
+</html>

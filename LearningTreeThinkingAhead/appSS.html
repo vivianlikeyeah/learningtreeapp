@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>Learning Tree App</title>
+<link rel="stylesheet" href="app.css">
+
+<!-- TO DO: Download -->
+<script src="jquery.min.js"></script>
+<script src="Chart.min.js"></script>
+<script src="utils.js"></script>
+<script type="text/javascript" src="vis-network.min.js"></script>
+
+</head>
+
+<body>
+  <!-- Top Menu Bar - Logo -->
+  <div class = "topBar">
+    <img src = "logo.png" height = 80%> </img>
+  </div>
+  <!-- Left Menu Bar - Icons -->
+  <div id = "primary-menu">
+    <ul>
+      <li><a id = "Explore" class="active"><img src = "book.png" height = 25px width = 25px> <br>Learn</a></li>
+    </ul>
+  </div>
+
+
+  <!-- Main Panel - Network-->
+  <div class = "mainBox">
+  <h1 id="h1">  The Learning Tree </h1>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div id = "modal-content" class="modal-content">
+        <span class="close"> x </span>
+        <div class = "modal-heading">
+         <b>Node Preview</b>
+       </div>
+        <div id = "modal-text">
+        <p>Node Information</p>
+        <p> Node Title </p>
+        <p> Node Level </p>
+        <p> Modules </p>
+        <p> Node Link </p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <!-- Network frame -->
+    <div id="mynetwork"></div>
+
+
+
+
+  </div>
+  <!-- Supplementary information -->
+  <div class = "rightBox" id="rightBox">
+
+    <div class = "sub2" id="ExploreLegend">
+    <h3>Key</h3>
+    <div class = "legend"> <div class ="legendText"><img src ="yellowcircle.png" height = 20% >  </div><div class ="legendText"> Core </div></div>
+    <div class = "legend"> <div class ="legendText"><img src ="greycircle.png" height = 20% > </div><div class ="legendText"> Optional </div></div>
+    </div>
+
+
+    <div class = "sub3">
+    <h3>More Information</h3>
+
+    <div class = "moreinfo" id = "moreinfo">To complete the Thinking Ahead Programme you must complete <b> all </b> Core nodes </b> and <b> a minimum of 3 </b> Optional nodes.
+    </div>
+
+
+
+    </div>
+
+  </div>
+
+
+
+
+
+</body>
+
+
+<script type="text/javascript" src="appSS.js"></script>
+</html>

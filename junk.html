@@ -286,12 +286,8 @@
         width: 2,
         shadow: true
       }, groups: {
-            4: {
-                color: {background: '#82cbff', border: '#82cbff'}
-            },
-            3:{
-                color: {background: '#8682ff', border: '#8682ff'}
-            },
+            4:{color: {background: '#82cbff', border: '#82cbff'}},
+            3:{color: {background: '#8682ff', border: '#8682ff'}},
             6:{color:{background: '#ff829d',  border: '#ff829d'}},
             7:{color:{background: '#ff9f82', border: '#ff9f82'}}
           }
@@ -300,8 +296,6 @@
       network = new vis.Network(container, data, options)
       //network2 = new vis.Network(container2, data,options)
       network.on( 'click', function(properties) {
-
-
         if(mode == "Explore"){
 
           var xcoord = properties.pointer.DOM.x;
@@ -498,7 +492,6 @@
     const nodesView = new vis.DataView(nodes, { filter: nodesFilter });
 
 
-
     nodeFilterSelector.addEventListener('change', (e) => {
       // set new value to filter variable
       nodeFilterValue = e.target.value
@@ -509,12 +502,4 @@
       nodesView.refresh()
     })
 
-
-
-
-
     startNetwork({ nodes: nodesView, edges: edges })
-
-  </script>
-</body>
-</html>

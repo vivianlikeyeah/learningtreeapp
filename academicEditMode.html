@@ -1,0 +1,342 @@
+<html>
+<head>
+<script type="text/javascript" src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="moduleview.css">
+
+<style type="text/css">
+
+  .move{
+    padding-left: 20px;
+  }
+
+  #exportEdges{
+    margin-left:20px;
+  }
+
+  h2{
+    margin-left: 20px;
+  }
+
+  #network{
+    margin-left: 15px;
+  }
+
+  .bigBox{
+    background-color: white;
+    width: 60%;
+    margin-left: 5px;
+    padding-left: 1%;
+    padding-bottom: 1%;
+    border-radius: 20px;
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  button{
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-family:verdana;
+    font-size: 12px;
+  }
+
+  #operation {
+    font-size:28px;
+  }
+  #network-popUp {
+    display:none;
+    position:absolute;
+    top:350px;
+    left:170px;
+    z-index:299;
+    width:250px;
+    height:120px;
+    background-color: #f9f9f9;
+    border-style:solid;
+    border-width:3px;
+    border-color: #5394ed;
+    padding:10px;
+    text-align: center;
+  }
+</style>
+<script type="text/javascript" src="https://visjs.github.io/vis-network/examples/network/exampleUtil.js"></script>
+
+<script type="text/javascript">
+
+  var nodes = null;
+  var edges = null;
+  var network = null;
+
+
+  var nodesArray = [
+  { id: 0, label: "AC Analysis", title: "AC Analysis", group: 3, shape:"dot" },
+  { id: 1, label:"DC and AC Power", title: "AC Power", group: 3, shape:"dot" },
+  { id: 2, label:"Capacitors & RC Circuits", title: "Capacitors and Resistor-Capacitor (RC) Circuits", group: 3, shape:"dot" },
+  { id: 3, label:"DC Circuit Analysis, DC Circuit Theorems", title: "Circuit Theory", group: 3, shape:"dot" },
+  { id: 4, label:"Digital Logic Circuits", title: "Digital Logic Circuits", group: 4, shape:"dot" },
+  { id: 5, label:"Inductors & RI Circuits", title: "Inductors and Resistor-Inductor (RI) Circuits", group: 3, shape:"dot" },
+  { id: 6, label:"Intro to Sensors", title: "Introduction to Sensors", group: 4, shape:"dot" },
+  { id: 7, label:"Nodal Circuit Analysis", title: "Nodal Circuit Analysis", group: 3, shape:"dot" },
+  { id: 8, label:"Operational Amplifiers", title: "Operational Amplifiers", group: 4, shape:"dot" },
+  { id: 9, label:"AC circuit analysis,\n AC circuit theorems", title: "AC circuit analysis, AC circuit theorems", group: 3, shape:"dot" },
+  { id: 10, label:"Advanced PV concepts", title: "Advanced PV concepts", group: 4, shape:"dot" },
+  { id: 11, label:"Alternative Energy", title: "Alternative Energy", group: 4, shape:"dot" },
+  { id: 12, label:"Power Distribution", title: "Power Distribution", group: 4, shape:"dot" },
+  { id: 13, label:"Power Storage", title: "Power Storage", group: 4, shape:"dot" },
+  { id: 14, label:"Renewable Energy", title: "Renewable Energy", group: 4, shape:"dot" },
+  { id: 15, label:"Sensors & Data Acquisition", title: "Sensors and Data Acquisition", group: 4, shape:"dot" },
+  { id: 16, label:"Signals & Systems", title: "Signals and Systems", group: 4, shape:"dot" },
+  { id: 17, label:"Autonomous Systems", title: "Autonomous Systems", group: 4, shape:"dot" },
+  { id: 18, label:"Mechatronics", title: "Mechatronics", group: 4, shape:"dot" },
+  {id: 19, label: "AC Network Functions", title:"AC Network Functions", group: 3, shape: "dot"},
+  {id: 20, label: "More Digital Circuits", title:"More Digital Circuits", group: 4, shape: "ellipse"}
+  ];
+
+  var nodeData = {
+    "0":{title:"AC Analysis", code:"EE10001"},
+    "1":{title:"AC Power", code:"EE10002"},
+    "2":{title:"Capacitors & RC Circuits", code:"EE10003"},
+    "3":{title:"Circuit Theory", code:"EE10004"},
+    "4":{title:"Digital Logic Circuits", code:"EE10005"},
+    "5":{title:"Inductors & RI Circuits", code:"EE10006"},
+    "6":{title:"Intro to Sensors", code:"EE10007"},
+    "7":{title:"Nodal Circuit Analysis", code:"EE10008"},
+    "8":{title:"Operational Amplifiers", code:"EE10009"},
+    "9":{title:"AC circuit analysis AC circuit theorems AC network functions", code:"EE20001"},
+    "10":{title:"Advanced PV concepts", code:"EE20002"},
+    "11":{title:"Alternative Energy", code:"EE20003"},
+    "12":{title:"Power Distribution", code:"EE20004"},
+    "13":{title:"Power Storage", code:"EE20005"},
+    "14":{title:"Renewable Energy", code:"EE20006"},
+    "15":{title:"Sensors & Data Acquisition", code:"EE20007"},
+    "16":{title:"Signals & Systems", code:"EE20008"},
+    "17":{title:"Autonomous Systems", code:"EE20009"},
+    "18":{title:"Mechatronics", code:"ME20009"},
+    "19":{title:"AC Network Functions", code:"NEW NODE"}
+  }
+
+  var edgesArray = [
+  {from:1	, to: 3},
+  {from:2	, to: 5},
+  {from:3	, to: 2},
+  {from:3, to: 8},
+  {from:4	, to: 20},
+  {from:5	, to: 9},
+  {from:6	, to: 15},
+  {from:8	, to: 15},
+  {from:9	, to: 19},
+  {from:9, to: 12},
+  {from:12, to: 13},
+  {from:14, to: 12},
+  {from: 14, to: 10},
+  {from: 14, to: 13},
+  {from:15, to: 16},
+  {from:18, to: 17},
+  {from: 19, to: 18},
+  {from: 19, to: 8},
+  {from: 20, to: 15}
+  ];
+
+  nodes = new vis.DataSet(nodesArray);
+  edges = new vis.DataSet(edgesArray);
+
+  // create a network
+  var data = {
+  nodes: nodes,
+  edges: edges
+  };
+
+
+  function draw() {
+    nodes = [];
+    edges = [];
+    // create a network
+    var container = document.getElementById('mynetwork');
+    var options = {
+      height: '80%',
+      width:'100%',
+      physics:{
+        enabled: true,
+        repulsion:{
+          nodeDistance:0,
+          centralGravity: 100
+        }
+
+      },
+      edges:{
+        arrows:"to"
+
+      },
+      manipulation: {
+        addNode: function (data, callback) {
+          // filling in the popup DOM elements
+          document.getElementById('operation').innerHTML = "Add Node";
+          document.getElementById('node-id').value = data.id;
+          document.getElementById('node-label').value = data.label;
+          document.getElementById('saveButton').onclick = saveData.bind(this, data, callback);
+          document.getElementById('cancelButton').onclick = clearPopUp.bind();
+          document.getElementById('network-popUp').style.display = 'block';
+        },
+        editNode: function (data, callback) {
+          // filling in the popup DOM elements
+          document.getElementById('operation').innerHTML = "Edit Node";
+          document.getElementById('node-id').value = data.id;
+          document.getElementById('node-label').value = data.label;
+          document.getElementById('saveButton').onclick = saveData.bind(this, data, callback);
+          document.getElementById('cancelButton').onclick = cancelEdit.bind(this,callback);
+          document.getElementById('network-popUp').style.display = 'block';
+        },
+        addEdge: function (data, callback) {
+          if (data.from == data.to) {
+            var r = confirm("Do you want to connect the node to itself?");
+            if (r == true) {
+              callback(data);
+            }
+          }
+          else {
+            callback(data);
+          }
+        }
+      }
+    };
+    network = new vis.Network(container, data, options);
+
+
+      theButton = document.getElementById("exportEdges");
+
+      theButton.onclick = function(){
+
+        var data = [];
+        var data2=[];
+
+        for(x=0; x<20; x++){
+          console.log(x);
+          console.log(nodeData[x].title)
+
+          var connectedNodes = network.getConnectedNodes(x, "to")
+          console.log(connectedNodes)
+
+          data.push([x, connectedNodes])
+
+          var connectedNodes2 = [];
+
+          for(y=0; y<connectedNodes.length; y++){
+            console.log("here??")
+            console.log(connectedNodes[y]);
+            console.log(nodeData[connectedNodes[y]].code)
+            connectedNodes2.push(nodeData[connectedNodes[y]].code);
+            console.log(connectedNodes2)
+
+          }
+
+          console.log(connectedNodes2)
+          console.log("The connected nodes array is that ^ ")
+          data2.push([nodeData[x].code,connectedNodes2])
+
+        }
+
+        //Create a list of all the node ID's
+        var csv = 'Node,Connections\n';
+
+        data.forEach(function(row) {
+                csv += row.join(',');
+                csv += "\n";
+        });
+
+        console.log(csv);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'nodeConnectionsIDs.csv';
+        hiddenElement.click();
+
+        var csv2 = 'Node,Connections\n';
+
+        data2.forEach(function(row) {
+                csv2 += row.join(',');
+                csv2 += "\n";
+        });
+
+        console.log(csv2);
+        var hiddenElement = document.createElement('a');
+        hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv2);
+        hiddenElement.target = '_blank';
+        hiddenElement.download = 'nodeConnectionsNames.csv';
+        hiddenElement.click();
+
+      };
+
+
+
+  }
+
+
+
+  function clearPopUp() {
+    document.getElementById('saveButton').onclick = null;
+    document.getElementById('cancelButton').onclick = null;
+    document.getElementById('network-popUp').style.display = 'none';
+  }
+
+  function cancelEdit(callback) {
+    clearPopUp();
+    callback(null);
+  }
+
+  function saveData(data,callback) {
+    data.id = document.getElementById('node-id').value;
+    data.label = document.getElementById('node-label').value;
+    clearPopUp();
+    callback(data);
+  }
+
+  function init() {
+    draw();
+  }
+
+</script>
+
+</head>
+
+<body onload="init();">
+
+<div class = "topBar">
+  <img src = "logo.png" height = 80%> </img>
+</div>
+<div id = "primary-menu">
+  <ul>
+    <li><a id = "Design" class="active"><img src = "constellation.png" height = 25px width = 25px> <br>Design Path</a></li>
+  </ul>
+</div>
+
+<div class ="move">
+  <div class = "mainBox">
+<h2>Academic Edit Mode</h2>
+
+<div id="network-popUp">
+<span id="operation">node</span> <br>
+<table style="margin:auto;"><tr>
+  <td>id</td><td><input id="node-id" value="new value" /></td>
+</tr>
+  <tr>
+    <td>label</td><td><input id="node-label" value="new value" /></td>
+  </tr></table>
+<input type="button" value="save" id="saveButton" />
+<input type="button" value="cancel" id="cancelButton" />
+</div>
+<br />
+<div id="mynetwork"></div>
+
+<button id="exportEdges"> ^ Export </button>
+
+
+</div>
+</div>
+
+</body>
+</html>
+
+<!-- Change the src for the new js file
+<script type="text/javascript" src="script.js"></script>
+
+-->

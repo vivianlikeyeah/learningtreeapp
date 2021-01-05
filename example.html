@@ -1,0 +1,111 @@
+<!-- Example for scope document -->
+
+<script type="text/javascript" src="https://visjs.github.io/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<style>
+ body {
+   font: 12pt verdana;
+   background-color: black;
+ }
+
+ #mynetwork {
+   width: 1200px;
+   height: 600px;
+   background-color: black;
+   display: block;
+ }
+
+ .heading{
+   color: white;
+   padding-left:2%;
+   font: 20pt;
+
+ }
+
+ .buttonClass{
+   color:white;
+   display:inline;
+   background-color: RGB(240,215,0);
+   width: 8%;
+   height: 10px;
+   text-align: center;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   padding-left:4px;
+   padding-right: 4px;
+   border-radius: 4px;
+   margin-left: 15px;
+ }
+
+ select{
+   color:white;
+   display:inline;
+   background-color: RGB(240,215,0);
+   width: 200px;
+   height: 28px;
+   text-align: center;
+   padding-top: 4px;
+   padding-bottom: 4px;
+   padding-left:4px;
+   padding-right: 4px;
+   border-radius: 4px;
+   margin-left: 15px;
+   font: 12pt verdana;
+
+ }
+
+ .buttonClass:hover{
+   cursor:hand;
+ }
+.buttons{
+ display: block;
+
+ padding: 1%;
+
+}
+
+
+
+h1{
+color:white;
+font-size: 18px;}
+h2{
+ color:white;
+ font-size: 16px;
+}
+
+</style>
+<html>
+<h1> TEDI-London Learning Tree</h1>
+<h2> Example Mode </h2>
+
+<div class ="buttons">
+<div class="buttonClass" id="toggleView">My Completed Nodes</div>
+<select id='nodeFilterSelect'>
+ <option value=''>Module Requirements</option>
+ <option value='1'>Module 1</option>
+ <option value='2'>Module 2</option>
+ <option value='3'>Module 3</option>
+ <option value='4'>Module 4</option>
+  <option value='5'>Module 5</option>
+
+</select>
+
+<div class="buttonClass" id="togglePath">Suggestion </div>
+<!-- <div class="buttonClass" id="addNew">Add New Node </div> -->
+<div class="buttonClass" id="refresh">Refresh Layout </div>
+
+
+
+
+</div>
+
+<div id="mynetwork"></div>
+
+
+
+</html>
+
+
+<script type="text/javascript" src="example.js"></script>

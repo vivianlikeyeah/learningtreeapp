@@ -112,10 +112,8 @@
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
-  border-radius: 5px;
-  width: 25%;
-  border: 10px solid #f0d700;
-
+  border: 1px solid #888;
+  width: 80%;
 }
 
 /* The Close Button */
@@ -155,7 +153,7 @@
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div id = "modal-content" class="modal-content">
+  <div class="modal-content">
     <span class="close"> x </span>
     <p>Node Information</p>
     <p> Node Title </p>
@@ -207,65 +205,15 @@
     $("#Explore").click(function(){
       mode = "Explore"
         $("#nodeFilterSelect").fadeOut(300);
-        $("#title").html("The Learning Tree (Explore Mode)");
-        checkNodes = [0,2,3,5,6,7,8,12,13,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54]
-        for (nodeID=0; nodeID < checkNodes.length; nodeID++){
 
-            let clickedNode = nodes.get(checkNodes[nodeID]);
-            if (clickedNode.group == 4){
-              clickedNode.color = {
-              background: '#82cbff',
-              border: '#82cbff'
-              }
-            }
-            else if (clickedNode.group == 3){
-              clickedNode.color = {
-              background: '#8682ff',
-              border: '#8682ff'
-              }
-            }
-            else if (clickedNode.group==6){
-              clickedNode.color = {
-              background: '#ff829d',
-              border: '#ff829d'
-              }
-            }
-            else{
-              clickedNode.color = {
-              background: '#ff9f82',
-              border: '#ff9f82'
-              }
-            }
-            nodes.update(clickedNode);
-        }
-
-
-    });
-    //Check and see if we can update a node colour when we click this
-    $("#Learn").click(function(){
-      mode = "Learn"
-      $("#nodeFilterSelect").fadeIn(500);
+      $("#title").html("The Learning Tree (Explore Mode)");
+  });
+  $("#Learn").click(function(){
+    mode = "Learn"
+    $("#nodeFilterSelect").fadeIn(500);
       $("#title").html("The Learning Tree (Learn Mode)");
+ });
 
-      //Time to iterate through all of the nodes.
-      checkNodes = [0,2,3,5,6,7,8,12,13,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54]
-      for (nodeID=0; nodeID < checkNodes.length; nodeID++){
-
-          let clickedNode = nodes.get(checkNodes[nodeID]);
-          if (clickedNode.completed == "true"){
-            clickedNode.color = {
-            background: '#b3ffb5'
-            }
-          }
-          else{
-            clickedNode.color = {
-            background: '#FFFFFF'
-            }
-          }
-          nodes.update(clickedNode);
-      }
-
-    });
 
 
     function startNetwork(data) {
@@ -279,22 +227,13 @@
           size: 12,
           color: "white"
         },
-        borderWidth: 5,
+        borderWidth: 2,
         shadow: true
       },
       edges: {
         width: 2,
         shadow: true
-      }, groups: {
-            4: {
-                color: {background: '#82cbff', border: '#82cbff'}
-            },
-            3:{
-                color: {background: '#8682ff', border: '#8682ff'}
-            },
-            6:{color:{background: '#ff829d',  border: '#ff829d'}},
-            7:{color:{background: '#ff9f82', border: '#ff9f82'}}
-          }
+      }
       };
 
       network = new vis.Network(container, data, options)
@@ -303,11 +242,8 @@
 
 
         if(mode == "Explore"){
-
-          var xcoord = properties.pointer.DOM.x;
-          var ycoord = properties.pointer.DOM.y;
-          console.log(xcoord);
-          console.log(ycoord);
+          var xcoord = properties.pointer.DOM.x
+          var ycoord = properties.pointer.DOM.y
           var options = {
               position: {x:xcoord,y:ycoord},
               offset: {x:400, y:200},
@@ -318,26 +254,10 @@
 
         }
         else{
+          console.log("We're learning, clicking!")
           var modal = document.getElementById("myModal");
           if(properties.nodes.length > 0){
-            console.log(properties.nodes)
-            if(nodeData[properties.nodes[0]]){
-              var modalcontent = document.getElementById("modal-content")
-              //modalcontent.innerHTML =
-              var text = ""
-              var html = text.concat("<p> Node: <b>", nodeData[properties.nodes[0]].title,
-              "</b><p> Node URL: ", "<a href=\"", nodeData[properties.nodes[0]].url , "\" target=\"_blank\">Learn Now</a>" )
-              modalcontent.innerHTML = html
-              console.log(nodeData[properties.nodes[0]].title)
-              console.log(nodeData[properties.nodes[0]].url)
-              console.log(html)
-              modal.style.display = "block";
-
-            }
-            else{
-              alert("We don't have data for this node yet. Please add.")
-            }
-
+            modal.style.display = "block";
 
           }
 
@@ -351,62 +271,56 @@
       //var two = new vis.Network(container2, data, options)
 
     }
-    nodeData ={
-      "0":{title:"Computer Internet Literacy", url:"https://www.google.com"},
-      "2":{title: "Python Programming", url:"https://www.google.com"},
-      "3":{title: "Characters Strings and Looping", url:"www.google.com"},
-      "18": {title: "Big Data", url: "https://view.genial.ly/5ee849dda768150d70e15e68/interactive-content-big-data-intro"}
-    }
 
     var nodesArray = [
-    { id: 0, label: "Computer Internet Literacy", group: 4,  module:1, completed:"true", shape: 'circularImage', image: 'start.png' },
-    { id: 2, label: "Python Programming", group: 4, module:1, completed:"true"},
-    { id: 3, label: "Characters Strings and Looping", group: 4,module:1, completed:"true" },
-    { id: 5, label: "Computational Thinking", group: 4,module:1, completed:"true" },
-    { id: 6, label: "Debugging", group: 4, module:1, completed:"false" },
-    { id: 7, label: "HTML and CSS", group: 4,module:1, completed:"false" },
-    { id: 8, label: "JavaScript", group: 4,module:1, completed:"false" },
-    { id: 12, label: "Web Development", group: 4, module:1, completed:"false"},
-    { id: 13, label: "Testing", group: 4, module:1, completed:"false" },
-    { id: 16, label: "Algorithms", group: 4, module:1, completed:"false"},
-    { id: 17, label: "Databases", group: 4, module:1, completed:"false" },
-    { id: 18, label: "Big Data", group: 4,module:1 , completed:"false"},
-    { id: 19, label: "Object Oriented Design", group: 4 ,module:3, completed:"false"},
-    { id: 20, label: "A learning node", group: 7, module: 3, completed:"false", shape: 'circularImage', image: 'start.png' },
-    { id: 21, label: "A learning node", group: 7, module: 3, completed:"false"},
-    { id: 22, label: "A learning node", group: 6, module: 3, completed:"false"},
-    { id: 23, label: "A learning node", group: 6, module: 3, completed:"false"},
-    { id: 24, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 25, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 26, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 27, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 28, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 29, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 30, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 31, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 32, label: "A learning node", group: 6, module: 3, completed:"false"},
-    { id: 33, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 34, label: "A learning node", group: 6, module: 3, completed:"false"},
-    { id: 35, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 36, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 37, label: "A learning node", group: 6, module: 3, completed:"false", shape: 'circularImage', image: 'start.png' },
-    { id: 38, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 39, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 40, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 41, label: "A learning node", group: 6, module: 2, completed:"false"},
-    { id: 42, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 43, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 44, label: "A learning node", group: 7, module: 2, completed:"false"},
-    { id: 45, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 46, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 47, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 48, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 49, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 50, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 51, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 52, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 53, label: "Node", group: 3, module: 3, completed:"false"},
-    { id: 54, label: "Node", group: 3, module: 3, completed:"false", shape: 'circularImage', image: 'start.png' }
+    { id: 0, label: "Computer Internet Literacy", group: 4,  module:1 },
+    { id: 2, label: "Python Programming", group: 4, module:1},
+    { id: 3, label: "Characters Strings and Looping", group: 4,module:1 },
+    { id: 5, label: "Computational Thinking", group: 4,module:1 },
+    { id: 6, label: "Debugging", group: 4, module:1 },
+    { id: 7, label: "HTML and CSS", group: 4,module:1 },
+    { id: 8, label: "JavaScript", group: 4,module:1 },
+    { id: 12, label: "Web Development", group: 4, module:1},
+    { id: 13, label: "Testing", group: 4, module:1 },
+    { id: 16, label: "Algorithms", group: 4, module:3},
+    { id: 17, label: "Databases", group: 4, module:3 },
+    { id: 18, label: "Big Data", group: 4,module:3 },
+    { id: 19, label: "Object Oriented Design", group: 4 ,module:3},
+    { id: 20, label: "A learning node", group: 7, module: 3},
+    { id: 21, label: "A learning node", group: 7, module: 3},
+    { id: 22, label: "A learning node", group: 6, module: 3},
+    { id: 23, label: "A learning node", group: 6, module: 3},
+    { id: 24, label: "A learning node", group: 6, module: 2},
+    { id: 25, label: "A learning node", group: 6, module: 2},
+    { id: 26, label: "A learning node", group: 6, module: 2},
+    { id: 27, label: "A learning node", group: 6, module: 2},
+    { id: 28, label: "A learning node", group: 6, module: 2},
+    { id: 29, label: "A learning node", group: 6, module: 2},
+    { id: 30, label: "A learning node", group: 7, module: 2},
+    { id: 31, label: "A learning node", group: 7, module: 2},
+    { id: 32, label: "A learning node", group: 6, module: 3},
+    { id: 33, label: "A learning node", group: 7, module: 2},
+    { id: 34, label: "A learning node", group: 6, module: 3},
+    { id: 35, label: "A learning node", group: 6, module: 2},
+    { id: 36, label: "A learning node", group: 7, module: 2},
+    { id: 37, label: "A learning node", group: 6, module: 3},
+    { id: 38, label: "A learning node", group: 6, module: 2},
+    { id: 39, label: "A learning node", group: 6, module: 2},
+    { id: 40, label: "A learning node", group: 7, module: 2},
+    { id: 41, label: "A learning node", group: 6, module: 2},
+    { id: 42, label: "A learning node", group: 7, module: 2},
+    { id: 43, label: "A learning node", group: 7, module: 2},
+    { id: 44, label: "A learning node", group: 7, module: 2},
+    { id: 45, label: "Node", group: 3, module: 3},
+    { id: 46, label: "Node", group: 3, module: 3},
+    { id: 47, label: "Node", group: 3, module: 3},
+    { id: 48, label: "Node", group: 3, module: 3},
+    { id: 49, label: "Node", group: 3, module: 3},
+    { id: 50, label: "Node", group: 3, module: 3},
+    { id: 51, label: "Node", group: 3, module: 3},
+    { id: 52, label: "Node", group: 3, module: 3},
+    { id: 53, label: "Node", group: 3, module: 3},
+    { id: 54, label: "Node", group: 3, module: 3}
 
     ];
     var edgesArray = [

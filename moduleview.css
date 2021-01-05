@@ -3,14 +3,7 @@ body{
   background-color: #ededed;
   font: 11pt verdana;
 }
-.sideMenu{
-background-color: black;
- float: left;
- width: 10%;
- color: white;
-font: 12pt verdana;
 
-}
 
 .topBar{
   width: 100%;
@@ -60,8 +53,20 @@ li a:hover:not(.active) {
 
 .mainBox{
   background-color: white;
-  width: 69%;
-  height: 86%;
+  width: 90%;
+  height: 88%;
+  margin-left: 6%;
+  margin-right: 1%;
+  margin-top: 1%;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 25px;
+  display: inline-block;
+  vertical-align: top;
+}
+.mainBox2{
+  background-color: white;
+  width: 60%;
+  height: 80%;
   margin-left: 6%;
   margin-right: 1%;
   margin-top: 1%;
@@ -93,7 +98,7 @@ h3 {
 
 
 .sub1{
-  height: 45%;
+  height: 87%;
   background-color: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   border-radius: 15px;
@@ -117,16 +122,9 @@ h3 {
 
 }
 
-.mainBox2{
-  float: right;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 0.5%;
-}
-
 .rightBox{
-  width: 22.5%;
-  height: 80%;
+  width: 30%;
+  height: 90%;
   display: inline-block;
   vertical-align: top;
   margin-top: .5%;
@@ -358,4 +356,30 @@ input:checked + .slider:before {
   padding-right: 5%;
   padding-top: 1px;
   margin-top: 1px;
+}
+
+
+#exportEdges{
+  margin-left: 5%;
+  display:inline;
+}
+
+#exportImage{
+  cursor:pointer;
+}
+
+.legendLeft{
+  background-color: white;
+  border-radius: 25px;
+  margin: 5%;
+}
+
+.legendRight{
+  background-color:white;
+  border-radius: 25px;
+  margin: 5%;
+}
+
+.keyText{
+  margin: 5%;
 }
