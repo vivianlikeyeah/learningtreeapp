@@ -482,6 +482,11 @@ $("#Learn").click(function(){
 function startNetwork(data) {
   const container = document.getElementById('mynetwork')
   const options = {
+    interaction:{
+      keyboard: {
+        enabled: true
+      }
+    },
     physics:{
         enabled: true,
         barnesHut: {
